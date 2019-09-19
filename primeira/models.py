@@ -1,29 +1,33 @@
 from django.db import models
-from django.db import IntegrityError
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=50)
     idade = models.IntegerField()
-    sexo = models.CharField(max_length=1)
     cpf = models.CharField(max_length=11)
-    
+    sexo = models.CharField(max_length=1)
+
     def __str__(self):
         return self.nome
 
 class CarrinhoDeCompras(models.Model):
-    cor = models.CharField(max_length=50)
-    tamanho = models.CharField(max_length=1)
+    cor = models.CharField(max_length=20)
+    tamanho = models.CharField(max_length=20)  
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    
+
     def __str__(self):
-        return self.nome
+        return self.cor
+
 
 class Produto(models.Model):
     nome = models.CharField(max_length=50)
+    descricao = models.CharField(max_length=50)
     quantidade = models.IntegerField()
-    descricao = models.CharField(max_length=100)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     carrinho = models.ForeignKey(CarrinhoDeCompras, on_delete=models.CASCADE)
+
     
-    def __str__(self):
-        return self.nome
+
+
+
+
+
+

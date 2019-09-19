@@ -1,13 +1,19 @@
 from django.shortcuts import render, redirect
 from . models import Produto, Cliente, CarrinhoDeCompras
 from . forms import ProdutoForm, ClienteForm, CarrinhoDeComprasForm
+from django.views.generic import ListView
 
 def home(request):
     return render (request, 'home.html')
 
 def produto_list(request):
-    produtos = Produto.objects.all()
-    return render (request, 'produto/list.html', {'produtos': produtos})
+    if (request.method == "POST"):
+        q = request.POST.get('pesquisar_por')
+        produtos = Produto.objects.filter(nome__icontains=q)
+        return render (request, 'produto/list.html', {'produtos': produtos})   
+    else:
+        produtos = Produto.objects.all()
+        return render (request, 'produto/list.html', {'produtos': produtos})
 
 def produto_show(request, produto_id):
     produto = Produto.objects.get(id=produto_id)
@@ -28,7 +34,7 @@ def produto_form(request):
 def produto_delete(request,produto_id):
     produto = Produto.objects.get(pk=produto_id)
     produto.delete()
-    return redirect('/primeira/produto/list')
+    return redirect('/primeira/produto/')
 
 def produto_editar(request,produto_id):
     if(request.method=='POST'):
@@ -36,7 +42,7 @@ def produto_editar(request,produto_id):
         form = ProdutoForm(request.POST, instance = produto)
         if form.is_valid():
             form.save()
-            return redirect('/primeira/produto/list')
+            return redirect('/primeira/produto/')
         else:
             return render(request,'produto/editar.html',{'form':form, 'produto_id':produto_id})       
     else:
@@ -76,3 +82,7 @@ def carrinho_form(request):
     else:
         form = CarrinhoDeComprasForm()
         return render (request, 'carrinho/form.html', {'form': form})
+
+
+
+

@@ -29,9 +29,9 @@
             <td>{{produto.descricao}}</td>
             <td>{{produto.cliente}}</td>
             <td>{{produto.carrinho}}</td>
-            <td><a href="http://127.0.0.1:8000/primeira/produto/{{produto.produto_id}}/">Ver</a></td>
-            <td><a href="http://127.0.0.1:8000/primeira/produto/delete/{{produto.produto_id}}/">Del</a></td>
-            <td><a href="http://127.0.0.1:8000/primeira/produto/editar/{{produto.produto_id}}/">Del</a></td>
+            <td><a href="http://127.0.0.1:8000/primeira/produto/{{produto.id}}">Ver</a></td>
+            <td><a href="http://127.0.0.1:8000/primeira/produto/delete/{{produto.id}}">Del</a></td>
+            <td><a href="http://127.0.0.1:8000/primeira/produto/editar/{{produto.id}}">Editar</a></td>
         </tr>
         {% endfor %}
     </tbody>
